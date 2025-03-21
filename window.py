@@ -1,5 +1,5 @@
 from tkinter import Tk, BOTH, Canvas
-
+# remember to setup x server for gui on wsl
 class Window:
     def __init__(self, width, height, title="Maze Solver"):
         self.root = Tk()
