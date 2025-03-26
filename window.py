@@ -9,8 +9,8 @@ class Window:
         self.root = Tk()
         self.root.protocol("WM_DELETE_WINDOW", self.close)
         self.root.title(title)
-        self.canvas = Canvas()
-        self.canvas.pack() # must pack the canvas to make it visible
+        self.canvas = Canvas(self.root, bg="grey", height=height, width=width)
+        self.canvas.pack(fill=BOTH, expand=1) # must pack the canvas to make it visible
         self.running = False
 
     def draw_line(self, line, colour="black"):
