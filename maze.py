@@ -18,7 +18,7 @@ class Maze:
     cell_size_x: width of each cell
     cell_size_y: height of each cell
     '''
-    def __init__(self, window, m_x, m_y, rows, cols, cell_size_x, cell_size_y):
+    def __init__(self, m_x, m_y, rows, cols, cell_size_x, cell_size_y, window=None):
         self._m_x = m_x # x pos of maze origin
         self.m_y = m_y # y pos of maze origin
         self.rows = rows
@@ -36,18 +36,25 @@ class Maze:
         for i in range(0, self.cols):
             column = []
             for j in range(0, self.rows):
-                cell_left_x = self._m_x + i * self.cell_size_x
-                cell_right_x = self._m_x + (i + 1) * self.cell_size_x
-                cell_top_y = self.m_y + j * self.cell_size_y
-                cell_bottom_y = self.m_y + (j + 1) * self.cell_size_y
-                cell = Cell(self._window, cell_left_x, cell_top_y, cell_right_x, cell_bottom_y)
+                cell_left = self._m_x + i * self.cell_size_x
+                cell_right = cell_left + self.cell_size_x
+                cell_top = self.m_y + j * self.cell_size_y
+                cell_bottom = cell_top + self.cell_size_y
+                cell = Cell(cell_left, cell_top, cell_right, cell_bottom, self._window)
                 column.append(cell)
             self._cells.append(column)
         # Then draw them all
         for i in range(0, self.cols):
             for j in range(0, self.rows):
                 self._draw_cell(i, j)
-                
+        
+    def _make_entrance_exit(self):
+        self._cells[0][0].top = False
+        self._cells[self.cols-1][self.rows-1].bottom = False
+        self._draw_cell(0, 0)
+        self._draw_cell(self.cols-1, self.rows-1)
+        
+        
     '''
     Draws a cell at the given column and row index
     '''
@@ -65,5 +72,5 @@ class Maze:
         if self._window is None:
             return
         self._window.redraw()
-        time.sleep(0.05)
+        time.sleep(0.01)
         
