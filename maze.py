@@ -1,5 +1,6 @@
 from graphics import Cell
 import time
+import random
 
 '''
 Maze is made up of cells, each cell is a square with four walls
@@ -18,7 +19,7 @@ class Maze:
     cell_size_x: width of each cell
     cell_size_y: height of each cell
     '''
-    def __init__(self, m_x, m_y, rows, cols, cell_size_x, cell_size_y, window=None):
+    def __init__(self, m_x, m_y, rows, cols, cell_size_x, cell_size_y, window=None, seed=None):
         self._m_x = m_x # x pos of maze origin
         self.m_y = m_y # y pos of maze origin
         self.rows = rows
@@ -27,6 +28,8 @@ class Maze:
         self.cell_size_y = cell_size_y
         self._cells = []
         self._window = window
+        if seed not None:
+            self.seed = random.seed(seed)
         self._create_cells()
     
     '''
