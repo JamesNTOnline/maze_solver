@@ -33,6 +33,7 @@ class Cell:
         self.height = bot_y - top_y
         self.mid_point = Point(top_x + self.width // 2, top_y + self.height // 2)
         self.window = window
+        self.visited = False
         
     def draw(self):
         if self.window is None:
@@ -50,6 +51,29 @@ class Cell:
             return # don't bother if the points are the same
         self.window.draw_line(Line(self.mid_point, to.mid_point), colour)
     
+    def open_wall(self, direction):
+            """
+            Opens up a wall in the cell by deleting a given wall
+            Args:
+                direction (str): The direction of the wall ("top", "right", "bottom", "left").
+                is_present (bool): True if the wall should be present, False otherwise.
+            """
+            if direction == "top":
+                self.top = False
+                self.walls[0] = (self.top, self.walls[0][1])
+            elif direction == "right":
+                self.right = False
+                self.walls[1] = (self.right, self.walls[1][1])
+            elif direction == "bottom":
+                self.bottom = False
+                self.walls[2] = (self.bottom, self.walls[2][1])
+            elif direction == "left":
+                self.left = False
+                self.walls[3] = (self.left, self.walls[3][1])
+            else:
+                raise ValueError("Invalid direction. Use 'top', 'right', 'bottom', or 'left'.")
+        
+
 '''
 A line is defined by two point objects which can 
 be used to draw a line on a canvas.

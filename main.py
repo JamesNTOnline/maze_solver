@@ -11,9 +11,11 @@ def main():
     cell_size_y = (screen_y - 2 * margin) / rows
     
     window = Window(screen_x, screen_y)
-    seed=0
+    seed=6 # used to generate the same maze each time
     maze = Maze(margin, margin, rows, cols, cell_size_x, cell_size_y, window, seed)
+    maze._break_walls(0, 0)
     maze._make_entrance_exit()
+
     
     window.wait_for_close()
     
